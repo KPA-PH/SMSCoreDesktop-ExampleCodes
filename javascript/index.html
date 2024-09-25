@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMSCoreDesktop Javascript Demo</title>
+</head>
+<body>
+    <script>
+        const urlEndpoint = "http://127.0.0.1:21001";
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+
+        // sendMessage("639605614295", "Hello KPA");
+        // verifySendMessage("f716a8c5-03a4-470f-ace7-497e484b904f");
+        // checkCredits();
+        // getInbound();
+        // getOutbound();
+
+        // send sms
+        async function sendMessage(to, message) {
+            var uri = urlEndpoint + "/api/v1/message/send?";
+            uri += "number=" + to;
+            uri += "&message=" + message;
+
+            await fetch(encodeURI(uri), {
+                method: 'POST',
+                headers: headers,
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+            })
+            .catch(error => console.error(error));
+        }
+        
+        // verify sms
+        async function verifySendMessage(guid) {
+            var uri = urlEndpoint + "/api/v1/message/send?";
+            uri += "guid=" + guid;
+
+            await fetch(encodeURI(uri), {
+                method: 'GET',
+                headers: headers,
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+            })
+            .catch(error => console.error(error));
+        }
+
+        // check credits
+        async function checkCredits() {
+            var uri = urlEndpoint + "/api/v1/message/credits";
+
+            await fetch(encodeURI(uri), {
+                method: 'GET',
+                headers: headers,
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+            })
+            .catch(error => console.error(error));
+        }
+
+        // get inbound
+        async function getInbound() {
+            var uri = urlEndpoint + "/api/v1/message/inbound";
+
+            await fetch(encodeURI(uri), {
+                method: 'GET',
+                headers: headers,
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+            })
+            .catch(error => console.error(error));
+        }
+
+        // get outbound
+        async function getOutbound() {
+            var uri = urlEndpoint + "/api/v1/message/outbound";
+
+            await fetch(encodeURI(uri), {
+                method: 'GET',
+                headers: headers,
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+            })
+            .catch(error => console.error(error));
+        }
+    </script>
+</body>
+</html>
